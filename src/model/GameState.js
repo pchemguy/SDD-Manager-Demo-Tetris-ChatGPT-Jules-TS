@@ -1,9 +1,11 @@
 import { GameBoard } from './GameBoard.js';
 import { Tetromino } from './Tetromino.js';
+import { PieceQueue } from './PieceQueue.js';
 
 export class GameState {
     constructor() {
         this.board = new GameBoard();
+        this.queue = new PieceQueue();
         this.activePiece = null;
         this.piecePosition = { x: 0, y: 0 };
         this.gravityAccumulator = 0;
@@ -15,8 +17,8 @@ export class GameState {
     }
 
     spawnPiece() {
-        // Just hardcoding 'T' piece for MVP
-        this.activePiece = new Tetromino('T');
+        const nextType = this.queue.getNextPieceType();
+        this.activePiece = new Tetromino(nextType);
         
         const pieceWidth = this.activePiece.getMatrix()[0].length;
         this.piecePosition = {
