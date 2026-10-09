@@ -10,7 +10,7 @@
         - [x] T-002 — Implement GameLoop
             Scope: `src/controller/GameLoop.js`, `src/main.js`.
             Evidence: `requestAnimationFrame` loop runs, calculates `deltaTime`, and logs ticks to the console.
-        - [ ] T-003 — Implement InputHandler skeleton
+        - [x] T-003 — Implement InputHandler skeleton
             Scope: `src/controller/InputHandler.js`, `src/main.js`.
             Evidence: Arrow keys and spacebar log events to the console; `keyup`/`keydown` logic prevents duplicate events.
         - [ ] T-004 — Review, test and report milestone 1.1
