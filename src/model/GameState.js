@@ -16,19 +16,23 @@ export class GameState {
         this.gravityAccumulator = 0;
         this.gravityInterval = 1.0; 
         
-        // Lock delay logic
-        this.lockDelayLimit = 1.0; // Same as one full gravity interval (MVP spec)
+        this.lockDelayLimit = 1.0;
         this.lockDelayAccumulator = 0;
         this.locking = false;
         this.lockMoveResets = 0;
-        this.maxLockMoveResets = 15; // Prevent infinite stalling
+        this.maxLockMoveResets = 15;
         
         this.linesClearedTotal = 0;
+        this.score = 0;
+        this.level = 1;
+        this.isGameOver = false;
         
         this.spawnPiece();
     }
 
     spawnPiece(type = null) {
+        if (this.isGameOver) return;
+
         const nextType = type || this.queue.getNextPieceType();
         this.activePiece = new Tetromino(nextType);
         
@@ -43,12 +47,17 @@ export class GameState {
         this.lockDelayAccumulator = 0;
         this.lockMoveResets = 0;
         
-        // Match lock delay strictly to current gravity (which will change later via level)
         this.lockDelayLimit = this.gravityInterval;
+
+        // Check block out condition immediately upon spawn
+        if (!this.board.isValidMove(this.activePiece.getMatrix(), this.piecePosition.x, this.piecePosition.y)) {
+            this.isGameOver = true;
+            this.activePiece = null;
+        }
     }
 
     holdPiece() {
-        if (!this.canHold || !this.activePiece) return;
+        if (this.isGameOver || !this.canHold || !this.activePiece) return;
         
         const currentType = this.activePiece.type;
         
@@ -65,9 +74,8 @@ export class GameState {
     }
 
     update(deltaTime, softDrop) {
-        if (!this.activePiece) return;
+        if (this.isGameOver || !this.activePiece) return;
 
-        // Check if piece is resting on a surface
         const isOnSurface = !this.board.isValidMove(
             this.activePiece.getMatrix(), 
             this.piecePosition.x, 
@@ -84,10 +92,10 @@ export class GameState {
             }
         } else {
             this.locking = false;
-            // Apply normal gravity
             let currentInterval = this.gravityInterval;
             if (softDrop) {
                 currentInterval /= 10; 
+                this.score += 1; // 1 point per cell soft dropped
             }
 
             this.gravityAccumulator += deltaTime;
@@ -106,7 +114,7 @@ export class GameState {
     }
 
     movePiece(dx, dy) {
-        if (!this.activePiece) return false;
+        if (this.isGameOver || !this.activePiece) return false;
 
         const newX = this.piecePosition.x + dx;
         const newY = this.piecePosition.y + dy;
@@ -114,18 +122,19 @@ export class GameState {
         if (this.board.isValidMove(this.activePiece.getMatrix(), newX, newY)) {
             this.piecePosition.x = newX;
             this.piecePosition.y = newY;
-            
-            // Any successful horizontal move or un-grounding move resets lock delay
             this.resetLockDelay();
-            
             return true;
+        }
+
+        if (dy > 0) {
+            this.lockPiece();
         }
 
         return false;
     }
 
     rotatePiece(direction) {
-        if (!this.activePiece) return false;
+        if (this.isGameOver || !this.activePiece) return false;
 
         const nextMatrix = this.activePiece.getNextRotationMatrix(direction);
         const kicks = this.activePiece.getWallKicks(direction);
@@ -138,9 +147,7 @@ export class GameState {
                 this.activePiece.rotate(direction);
                 this.piecePosition.x = testX;
                 this.piecePosition.y = testY;
-                
                 this.resetLockDelay();
-                
                 return true;
             }
         }
@@ -149,7 +156,7 @@ export class GameState {
     }
 
     hardDrop() {
-        if (!this.activePiece) return;
+        if (this.isGameOver || !this.activePiece) return;
         
         let dropDistance = 0;
         while (this.board.isValidMove(this.activePiece.getMatrix(), this.piecePosition.x, this.piecePosition.y + dropDistance + 1)) {
@@ -157,11 +164,12 @@ export class GameState {
         }
         
         this.piecePosition.y += dropDistance;
+        this.score += dropDistance * 2; // 2 points per cell hard dropped
         this.lockPiece();
     }
 
     getGhostPosition() {
-        if (!this.activePiece) return null;
+        if (this.isGameOver || !this.activePiece) return null;
         
         let dropDistance = 0;
         while (this.board.isValidMove(this.activePiece.getMatrix(), this.piecePosition.x, this.piecePosition.y + dropDistance + 1)) {
@@ -180,7 +188,22 @@ export class GameState {
         const linesCleared = this.board.clearLines();
         if (linesCleared > 0) {
             this.linesClearedTotal += linesCleared;
-            console.log(`Cleared ${linesCleared} lines. Total: ${this.linesClearedTotal}`);
+            
+            // Standard guideline scoring
+            let baseScore = 0;
+            switch(linesCleared) {
+                case 1: baseScore = 100; break;
+                case 2: baseScore = 300; break;
+                case 3: baseScore = 500; break;
+                case 4: baseScore = 800; break;
+            }
+            this.score += baseScore * this.level;
+            
+            // Level up every 10 lines
+            this.level = Math.floor(this.linesClearedTotal / 10) + 1;
+            
+            // Speed curve (formula roughly approximating guideline speed)
+            this.gravityInterval = Math.pow(0.8 - ((this.level - 1) * 0.007), this.level - 1);
         }
 
         this.spawnPiece();
