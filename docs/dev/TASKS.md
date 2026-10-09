@@ -2,7 +2,7 @@
 
 ## Phase 1 — Core Engine MVP
 
-- [ ] Phase 1 — Core Engine MVP
+- [x] Phase 1 — Core Engine MVP
     - [x] Milestone 1.1 — Project Setup and Loop
         - [x] T-001 — Setup project files
             Scope: `index.html`, `style.css`, `src/main.js`.
@@ -58,8 +58,8 @@
         - [x] T-017 — Review, test and report milestone 1.4
             Depends on: T-014, T-015, T-016. Evidence: code review, required tests, blocker repairs and committed report.
             Report: docs/dev/reports/phases/1/1.4.md.
-    - [ ] Milestone 1.5 — Phase 1 Review
-        - [ ] T-018 — Review, test and report phase 1
+    - [x] Milestone 1.5 — Phase 1 Review
+        - [x] T-018 — Review, test and report phase 1
             Depends on: milestone 1.1, 1.2, 1.3, 1.4 completion/closure. Evidence: phase review, MVP functionality verified in browser, exits, repairs and committed report.
             Report: docs/dev/reports/phases/1/PHASE-REPORT.md.
 
