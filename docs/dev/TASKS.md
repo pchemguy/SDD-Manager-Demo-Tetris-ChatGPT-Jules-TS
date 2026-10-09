@@ -2,64 +2,64 @@
 
 ## Phase 1 — Core Engine MVP
 
-- [ ] Phase 1 — Core Engine MVP
-    - [ ] Milestone 1.1 — Project Setup and Loop
-        - [ ] T-001 — Setup project files
+- [x] Phase 1 — Core Engine MVP
+    - [x] Milestone 1.1 — Project Setup and Loop
+        - [x] T-001 — Setup project files
             Scope: `index.html`, `style.css`, `src/main.js`.
             Evidence: HTML loads, basic CSS layout is visible, JS console runs without errors.
-        - [ ] T-002 — Implement GameLoop
+        - [x] T-002 — Implement GameLoop
             Scope: `src/controller/GameLoop.js`, `src/main.js`.
             Evidence: `requestAnimationFrame` loop runs, calculates `deltaTime`, and logs ticks to the console.
-        - [ ] T-003 — Implement InputHandler skeleton
+        - [x] T-003 — Implement InputHandler skeleton
             Scope: `src/controller/InputHandler.js`, `src/main.js`.
             Evidence: Arrow keys and spacebar log events to the console; `keyup`/`keydown` logic prevents duplicate events.
-        - [ ] T-004 — Review, test and report milestone 1.1
+        - [x] T-004 — Review, test and report milestone 1.1
             Depends on: T-001, T-002, T-003. Evidence: code review, required tests, blocker repairs and committed report.
             Report: docs/dev/reports/phases/1/1.1.md.
-    - [ ] Milestone 1.2 — Board and Tetrominoes
-        - [ ] T-005 — Implement GameBoard state
+    - [x] Milestone 1.2 — Board and Tetrominoes
+        - [x] T-005 — Implement GameBoard state
             Scope: `src/model/GameBoard.js`, `src/constants.js`.
             Evidence: 10x20 grid array initialized correctly, helper method to get/set cell values.
-        - [ ] T-006 — Define Tetromino shapes and basic rotations
+        - [x] T-006 — Define Tetromino shapes and basic rotations
             Scope: `src/model/Tetromino.js`, `src/constants.js`.
             Evidence: All 7 shapes have correct 4x4 or 3x3 matrices for all 4 rotation states.
-        - [ ] T-007 — Implement GameState skeleton
+        - [x] T-007 — Implement GameState skeleton
             Scope: `src/model/GameState.js`.
             Evidence: Holds instances of `GameBoard` and an active `Tetromino` at a valid starting position.
-        - [ ] T-008 — Implement basic Canvas Renderer
+        - [x] T-008 — Implement basic Canvas Renderer
             Scope: `src/view/Renderer.js`.
             Evidence: Draws the 10x20 grid background and the active `Tetromino` on the screen based on `GameState`.
-        - [ ] T-009 — Review, test and report milestone 1.2
+        - [x] T-009 — Review, test and report milestone 1.2
             Depends on: T-005, T-006, T-007, T-008. Evidence: code review, required tests, blocker repairs and committed report.
             Report: docs/dev/reports/phases/1/1.2.md.
-    - [ ] Milestone 1.3 — Gravity and Collision
-        - [ ] T-010 — Connect Input to GameState movements
+    - [x] Milestone 1.3 — Gravity and Collision
+        - [x] T-010 — Connect Input to GameState movements
             Scope: `src/controller/InputHandler.js`, `src/model/GameState.js`.
             Evidence: Left/Right inputs move the active piece position; Left/Right limits enforced by grid boundaries.
-        - [ ] T-011 — Implement basic gravity
+        - [x] T-011 — Implement basic gravity
             Scope: `src/model/GameState.js`, `src/controller/GameLoop.js`.
             Evidence: Active piece moves down one row automatically based on a basic timer integrated with `deltaTime`. Soft drop key speeds this up.
-        - [ ] T-012 — Implement collision detection
+        - [x] T-012 — Implement collision detection
             Scope: `src/model/GameBoard.js`, `src/model/GameState.js`.
             Evidence: `isValidMove` checks floor boundary. Piece cannot move down past row 19.
-        - [ ] T-013 — Review, test and report milestone 1.3
+        - [x] T-013 — Review, test and report milestone 1.3
             Depends on: T-010, T-011, T-012. Evidence: code review, required tests, blocker repairs and committed report.
             Report: docs/dev/reports/phases/1/1.3.md.
-    - [ ] Milestone 1.4 — Basic Locking and Line Clears
-        - [ ] T-014 — Implement stack locking
+    - [x] Milestone 1.4 — Basic Locking and Line Clears
+        - [x] T-014 — Implement stack locking
             Scope: `src/model/GameBoard.js`, `src/model/GameState.js`.
             Evidence: When piece hits floor or stack, it transfers its shape to the `GameBoard` grid. A new piece spawns at the top.
-        - [ ] T-015 — Update collision for stack
+        - [x] T-015 — Update collision for stack
             Scope: `src/model/GameBoard.js`.
             Evidence: `isValidMove` checks against locked pieces on the board; pieces stack on top of each other.
-        - [ ] T-016 — Implement basic line clearing
+        - [x] T-016 — Implement basic line clearing
             Scope: `src/model/GameBoard.js`.
             Evidence: Filled rows are detected, removed, and blocks above drop down.
-        - [ ] T-017 — Review, test and report milestone 1.4
+        - [x] T-017 — Review, test and report milestone 1.4
             Depends on: T-014, T-015, T-016. Evidence: code review, required tests, blocker repairs and committed report.
             Report: docs/dev/reports/phases/1/1.4.md.
-    - [ ] Milestone 1.5 — Phase 1 Review
-        - [ ] T-018 — Review, test and report phase 1
+    - [x] Milestone 1.5 — Phase 1 Review
+        - [x] T-018 — Review, test and report phase 1
             Depends on: milestone 1.1, 1.2, 1.3, 1.4 completion/closure. Evidence: phase review, MVP functionality verified in browser, exits, repairs and committed report.
             Report: docs/dev/reports/phases/1/PHASE-REPORT.md.
 
