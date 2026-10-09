@@ -23,7 +23,7 @@
         - [x] T-006 — Define Tetromino shapes and basic rotations
             Scope: `src/model/Tetromino.js`, `src/constants.js`.
             Evidence: All 7 shapes have correct 4x4 or 3x3 matrices for all 4 rotation states.
-        - [ ] T-007 — Implement GameState skeleton
+        - [x] T-007 — Implement GameState skeleton
             Scope: `src/model/GameState.js`.
             Evidence: Holds instances of `GameBoard` and an active `Tetromino` at a valid starting position.
         - [ ] T-008 — Implement basic Canvas Renderer
