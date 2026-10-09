@@ -4,7 +4,7 @@
 
 - [ ] Phase 1 — Core Engine MVP
     - [ ] Milestone 1.1 — Project Setup and Loop
-        - [ ] T-001 — Setup project files
+        - [x] T-001 — Setup project files
             Scope: `index.html`, `style.css`, `src/main.js`.
             Evidence: HTML loads, basic CSS layout is visible, JS console runs without errors.
         - [ ] T-002 — Implement GameLoop
