@@ -96,14 +96,14 @@
         - [x] T-027 — Review, test and report milestone 2.3
             Depends on: T-025, T-026. Evidence: code review, required tests, blocker repairs and committed report.
             Report: docs/dev/reports/phases/2/2.3.md.
-    - [ ] Milestone 2.4 — Lock Delay and Wall Kicks
+    - [x] Milestone 2.4 — Lock Delay and Wall Kicks
         - [x] T-028 — Implement standard SRS Wall Kicks
             Scope: `src/model/Tetromino.js`, `src/model/GameState.js`, `src/constants.js`.
             Evidence: Rotations near walls/stack test alternative offsets before failing, allowing piece manipulation in tight spaces.
         - [x] T-029 — Implement exact 1-gravity-interval Lock Delay
             Scope: `src/model/GameState.js`.
             Evidence: Piece landing on stack does not lock instantly; player has time equal to current gravity speed to slide/rotate it. Timer resets correctly based on movement, respecting infinite-stall limits.
-        - [ ] T-030 — Review, test and report milestone 2.4
+        - [x] T-030 — Review, test and report milestone 2.4
             Depends on: T-028, T-029. Evidence: code review, required tests, blocker repairs and committed report.
             Report: docs/dev/reports/phases/2/2.4.md.
     - [ ] Milestone 2.5 — Phase 2 Review
