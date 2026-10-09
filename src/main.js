@@ -10,7 +10,6 @@ const gameState = new GameState();
 const renderer = new Renderer('tetris-canvas');
 
 function update(deltaTime) {
-    // 1. Process discrete inputs
     if (inputHandler.consumeCommand('moveLeft')) {
         gameState.movePiece(-1, 0);
     }
@@ -26,8 +25,10 @@ function update(deltaTime) {
     if (inputHandler.consumeCommand('hardDrop')) {
         gameState.hardDrop();
     }
+    if (inputHandler.consumeCommand('hold')) {
+        gameState.holdPiece();
+    }
     
-    // 2. Process continuous inputs (soft drop) & advance time
     const softDrop = inputHandler.commands.softDrop;
     gameState.update(deltaTime, softDrop);
 }

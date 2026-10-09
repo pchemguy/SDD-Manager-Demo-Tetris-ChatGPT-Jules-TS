@@ -6,8 +6,13 @@ export class GameState {
     constructor() {
         this.board = new GameBoard();
         this.queue = new PieceQueue();
+        
         this.activePiece = null;
         this.piecePosition = { x: 0, y: 0 };
+        
+        this.heldPieceType = null;
+        this.canHold = true; // Can only hold once per drop
+        
         this.gravityAccumulator = 0;
         this.gravityInterval = 1.0; 
         
@@ -16,8 +21,8 @@ export class GameState {
         this.spawnPiece();
     }
 
-    spawnPiece() {
-        const nextType = this.queue.getNextPieceType();
+    spawnPiece(type = null) {
+        const nextType = type || this.queue.getNextPieceType();
         this.activePiece = new Tetromino(nextType);
         
         const pieceWidth = this.activePiece.getMatrix()[0].length;
@@ -25,6 +30,25 @@ export class GameState {
             x: Math.floor((10 - pieceWidth) / 2),
             y: 0 
         };
+        
+        this.canHold = true;
+    }
+
+    holdPiece() {
+        if (!this.canHold || !this.activePiece) return;
+        
+        const currentType = this.activePiece.type;
+        
+        if (this.heldPieceType === null) {
+            this.heldPieceType = currentType;
+            this.spawnPiece();
+        } else {
+            const previousHeld = this.heldPieceType;
+            this.heldPieceType = currentType;
+            this.spawnPiece(previousHeld);
+        }
+        
+        this.canHold = false;
     }
 
     update(deltaTime, softDrop) {
