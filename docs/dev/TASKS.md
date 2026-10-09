@@ -65,7 +65,7 @@
 
 ## Phase 2 — Modern Mechanics
 
-- [ ] Phase 2 — Modern Mechanics
+- [x] Phase 2 — Modern Mechanics
     - [x] Milestone 2.1 — 7-Bag Randomizer
         - [x] T-019 — Implement 7-Bag piece generation
             Scope: `src/model/PieceQueue.js`.
@@ -106,8 +106,8 @@
         - [x] T-030 — Review, test and report milestone 2.4
             Depends on: T-028, T-029. Evidence: code review, required tests, blocker repairs and committed report.
             Report: docs/dev/reports/phases/2/2.4.md.
-    - [ ] Milestone 2.5 — Phase 2 Review
-        - [ ] T-031 — Review, test and report phase 2
+    - [x] Milestone 2.5 — Phase 2 Review
+        - [x] T-031 — Review, test and report phase 2
             Depends on: milestone 2.1, 2.2, 2.3, 2.4 completion/closure. Evidence: phase review, modern mechanics verified in browser, exits, repairs and committed report.
             Report: docs/dev/reports/phases/2/PHASE-REPORT.md.
 
