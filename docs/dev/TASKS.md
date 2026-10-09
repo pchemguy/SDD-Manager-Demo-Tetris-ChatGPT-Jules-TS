@@ -33,7 +33,7 @@
             Depends on: T-005, T-006, T-007, T-008. Evidence: code review, required tests, blocker repairs and committed report.
             Report: docs/dev/reports/phases/1/1.2.md.
     - [ ] Milestone 1.3 — Gravity and Collision
-        - [ ] T-010 — Connect Input to GameState movements
+        - [x] T-010 — Connect Input to GameState movements
             Scope: `src/controller/InputHandler.js`, `src/model/GameState.js`.
             Evidence: Left/Right inputs move the active piece position; Left/Right limits enforced by grid boundaries.
         - [ ] T-011 — Implement basic gravity
