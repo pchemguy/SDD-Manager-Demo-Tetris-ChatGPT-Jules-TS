@@ -16,7 +16,7 @@
         - [x] T-004 — Review, test and report milestone 1.1
             Depends on: T-001, T-002, T-003. Evidence: code review, required tests, blocker repairs and committed report.
             Report: docs/dev/reports/phases/1/1.1.md.
-    - [ ] Milestone 1.2 — Board and Tetrominoes
+    - [x] Milestone 1.2 — Board and Tetrominoes
         - [x] T-005 — Implement GameBoard state
             Scope: `src/model/GameBoard.js`, `src/constants.js`.
             Evidence: 10x20 grid array initialized correctly, helper method to get/set cell values.
@@ -29,7 +29,7 @@
         - [x] T-008 — Implement basic Canvas Renderer
             Scope: `src/view/Renderer.js`.
             Evidence: Draws the 10x20 grid background and the active `Tetromino` on the screen based on `GameState`.
-        - [ ] T-009 — Review, test and report milestone 1.2
+        - [x] T-009 — Review, test and report milestone 1.2
             Depends on: T-005, T-006, T-007, T-008. Evidence: code review, required tests, blocker repairs and committed report.
             Report: docs/dev/reports/phases/1/1.2.md.
     - [ ] Milestone 1.3 — Gravity and Collision
