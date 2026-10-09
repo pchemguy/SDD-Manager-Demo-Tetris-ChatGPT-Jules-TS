@@ -56,3 +56,30 @@ export const SHAPES = {
         [0, 0, 0]
     ]
 };
+
+// Super Rotation System (SRS) Wall Kick Data
+// Arrays represent (dx, dy) test offsets for each rotation transition.
+// Note: Tetris guidelines usually treat 'y' up as positive. Our grid is 'y' down positive.
+// Therefore, the y signs are inverted here relative to standard SRS documentation.
+export const WALL_KICKS = {
+    JLSTZ: {
+        '0->1': [{x:0,y:0}, {x:-1,y:0}, {x:-1,y:-1}, {x:0,y:2}, {x:-1,y:2}],
+        '1->0': [{x:0,y:0}, {x:1,y:0},  {x:1,y:1},   {x:0,y:-2}, {x:1,y:-2}],
+        '1->2': [{x:0,y:0}, {x:1,y:0},  {x:1,y:-1},  {x:0,y:2},  {x:1,y:2}],
+        '2->1': [{x:0,y:0}, {x:-1,y:0}, {x:-1,y:1},  {x:0,y:-2}, {x:-1,y:-2}],
+        '2->3': [{x:0,y:0}, {x:1,y:0},  {x:1,y:-1},  {x:0,y:2},  {x:1,y:2}],
+        '3->2': [{x:0,y:0}, {x:-1,y:0}, {x:-1,y:1},  {x:0,y:-2}, {x:-1,y:-2}],
+        '3->0': [{x:0,y:0}, {x:-1,y:0}, {x:-1,y:-1}, {x:0,y:2},  {x:-1,y:2}],
+        '0->3': [{x:0,y:0}, {x:1,y:0},  {x:1,y:1},   {x:0,y:-2}, {x:1,y:-2}]
+    },
+    I: {
+        '0->1': [{x:0,y:0}, {x:-2,y:0}, {x:1,y:0},  {x:-2,y:-1}, {x:1,y:2}],
+        '1->0': [{x:0,y:0}, {x:2,y:0},  {x:-1,y:0}, {x:2,y:1},   {x:-1,y:-2}],
+        '1->2': [{x:0,y:0}, {x:-1,y:0}, {x:2,y:0},  {x:-1,y:2},  {x:2,y:-1}],
+        '2->1': [{x:0,y:0}, {x:1,y:0},  {x:-2,y:0}, {x:1,y:-2},  {x:-2,y:1}],
+        '2->3': [{x:0,y:0}, {x:2,y:0},  {x:-1,y:0}, {x:2,y:1},   {x:-1,y:-2}],
+        '3->2': [{x:0,y:0}, {x:-2,y:0}, {x:1,y:0},  {x:-2,y:-1}, {x:1,y:2}],
+        '3->0': [{x:0,y:0}, {x:1,y:0},  {x:-2,y:0}, {x:1,y:-2},  {x:-2,y:1}],
+        '0->3': [{x:0,y:0}, {x:-1,y:0}, {x:2,y:0},  {x:-1,y:2},  {x:2,y:-1}]
+    }
+};

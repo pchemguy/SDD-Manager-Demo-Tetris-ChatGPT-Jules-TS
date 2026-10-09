@@ -65,49 +65,49 @@
 
 ## Phase 2 — Modern Mechanics
 
-- [ ] Phase 2 — Modern Mechanics
-    - [ ] Milestone 2.1 — 7-Bag Randomizer
-        - [ ] T-019 — Implement 7-Bag piece generation
+- [x] Phase 2 — Modern Mechanics
+    - [x] Milestone 2.1 — 7-Bag Randomizer
+        - [x] T-019 — Implement 7-Bag piece generation
             Scope: `src/model/PieceQueue.js`.
             Evidence: Pieces are dealt in shuffled sets of 7, ensuring all shapes appear before repeating the bag.
-        - [ ] T-020 — Render Next Piece queue
+        - [x] T-020 — Render Next Piece queue
             Scope: `src/view/Renderer.js`.
             Evidence: UI shows the next upcoming pieces based on the `PieceQueue`.
-        - [ ] T-021 — Review, test and report milestone 2.1
+        - [x] T-021 — Review, test and report milestone 2.1
             Depends on: T-019, T-020. Evidence: code review, required tests, blocker repairs and committed report.
             Report: docs/dev/reports/phases/2/2.1.md.
-    - [ ] Milestone 2.2 — Hard Drop and Ghost Piece
-        - [ ] T-022 — Implement Hard Drop logic
+    - [x] Milestone 2.2 — Hard Drop and Ghost Piece
+        - [x] T-022 — Implement Hard Drop logic
             Scope: `src/model/GameState.js`.
             Evidence: Spacebar instantly calculates lowest valid position, moves piece, and locks it immediately.
-        - [ ] T-023 — Calculate and render Ghost Piece
+        - [x] T-023 — Calculate and render Ghost Piece
             Scope: `src/model/GameState.js`, `src/view/Renderer.js`.
             Evidence: A translucent outline of the piece is rendered at its hard-drop location, updating as the piece moves.
-        - [ ] T-024 — Review, test and report milestone 2.2
+        - [x] T-024 — Review, test and report milestone 2.2
             Depends on: T-022, T-023. Evidence: code review, required tests, blocker repairs and committed report.
             Report: docs/dev/reports/phases/2/2.2.md.
-    - [ ] Milestone 2.3 — Hold Piece
-        - [ ] T-025 — Implement Hold logic
+    - [x] Milestone 2.3 — Hold Piece
+        - [x] T-025 — Implement Hold logic
             Scope: `src/model/GameState.js`.
             Evidence: Pressing Hold swaps current piece to hold slot. Only allows one hold per piece-spawn.
-        - [ ] T-026 — Render Hold slot
+        - [x] T-026 — Render Hold slot
             Scope: `src/view/Renderer.js`.
             Evidence: UI displays the currently held piece (if any).
-        - [ ] T-027 — Review, test and report milestone 2.3
+        - [x] T-027 — Review, test and report milestone 2.3
             Depends on: T-025, T-026. Evidence: code review, required tests, blocker repairs and committed report.
             Report: docs/dev/reports/phases/2/2.3.md.
-    - [ ] Milestone 2.4 — Lock Delay and Wall Kicks
-        - [ ] T-028 — Implement standard SRS Wall Kicks
+    - [x] Milestone 2.4 — Lock Delay and Wall Kicks
+        - [x] T-028 — Implement standard SRS Wall Kicks
             Scope: `src/model/Tetromino.js`, `src/model/GameState.js`, `src/constants.js`.
             Evidence: Rotations near walls/stack test alternative offsets before failing, allowing piece manipulation in tight spaces.
-        - [ ] T-029 — Implement exact 1-gravity-interval Lock Delay
+        - [x] T-029 — Implement exact 1-gravity-interval Lock Delay
             Scope: `src/model/GameState.js`.
             Evidence: Piece landing on stack does not lock instantly; player has time equal to current gravity speed to slide/rotate it. Timer resets correctly based on movement, respecting infinite-stall limits.
-        - [ ] T-030 — Review, test and report milestone 2.4
+        - [x] T-030 — Review, test and report milestone 2.4
             Depends on: T-028, T-029. Evidence: code review, required tests, blocker repairs and committed report.
             Report: docs/dev/reports/phases/2/2.4.md.
-    - [ ] Milestone 2.5 — Phase 2 Review
-        - [ ] T-031 — Review, test and report phase 2
+    - [x] Milestone 2.5 — Phase 2 Review
+        - [x] T-031 — Review, test and report phase 2
             Depends on: milestone 2.1, 2.2, 2.3, 2.4 completion/closure. Evidence: phase review, modern mechanics verified in browser, exits, repairs and committed report.
             Report: docs/dev/reports/phases/2/PHASE-REPORT.md.
 

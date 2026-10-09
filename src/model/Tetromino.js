@@ -1,17 +1,16 @@
-import { SHAPES } from '../constants.js';
+import { SHAPES, WALL_KICKS } from '../constants.js';
 
 export class Tetromino {
     constructor(type) {
         this.type = type;
         this.matrices = this._generateRotations(SHAPES[type]);
-        this.rotationIndex = 0; // 0: North, 1: East, 2: South, 3: West
+        this.rotationIndex = 0; // 0: N, 1: E, 2: S, 3: W
     }
 
     getMatrix() {
         return this.matrices[this.rotationIndex];
     }
 
-    // Helper to see the matrix if we were to rotate, without actually mutating state
     getNextRotationMatrix(direction) {
         let newIndex = this.rotationIndex;
         if (direction === 'cw') {
@@ -22,6 +21,29 @@ export class Tetromino {
         return this.matrices[newIndex];
     }
 
+    getWallKicks(direction) {
+        if (this.type === 'O') {
+            return [{x: 0, y: 0}];
+        }
+
+        const stateFrom = this.rotationIndex;
+        let stateTo = this.rotationIndex;
+
+        if (direction === 'cw') {
+            stateTo = (stateTo + 1) % 4;
+        } else if (direction === 'ccw') {
+            stateTo = (stateTo - 1 + 4) % 4;
+        }
+
+        const transitionKey = `${stateFrom}->${stateTo}`;
+        
+        if (this.type === 'I') {
+            return WALL_KICKS.I[transitionKey] || [{x: 0, y: 0}];
+        } else {
+            return WALL_KICKS.JLSTZ[transitionKey] || [{x: 0, y: 0}];
+        }
+    }
+
     rotate(direction) {
         if (direction === 'cw') {
             this.rotationIndex = (this.rotationIndex + 1) % 4;
@@ -30,12 +52,10 @@ export class Tetromino {
         }
     }
 
-    // Pre-calculate all 4 rotation states upon creation to save CPU later
     _generateRotations(initialMatrix) {
         const rotations = [initialMatrix];
         let current = initialMatrix;
         
-        // Generate the next 3 rotations
         for (let i = 0; i < 3; i++) {
             current = this._rotateMatrixClockwise(current);
             rotations.push(current);
