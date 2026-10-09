@@ -3,7 +3,7 @@
 ## Phase 1 — Core Engine MVP
 
 - [ ] Phase 1 — Core Engine MVP
-    - [ ] Milestone 1.1 — Project Setup and Loop
+    - [x] Milestone 1.1 — Project Setup and Loop
         - [x] T-001 — Setup project files
             Scope: `index.html`, `style.css`, `src/main.js`.
             Evidence: HTML loads, basic CSS layout is visible, JS console runs without errors.
@@ -13,7 +13,7 @@
         - [x] T-003 — Implement InputHandler skeleton
             Scope: `src/controller/InputHandler.js`, `src/main.js`.
             Evidence: Arrow keys and spacebar log events to the console; `keyup`/`keydown` logic prevents duplicate events.
-        - [ ] T-004 — Review, test and report milestone 1.1
+        - [x] T-004 — Review, test and report milestone 1.1
             Depends on: T-001, T-002, T-003. Evidence: code review, required tests, blocker repairs and committed report.
             Report: docs/dev/reports/phases/1/1.1.md.
     - [ ] Milestone 1.2 — Board and Tetrominoes
