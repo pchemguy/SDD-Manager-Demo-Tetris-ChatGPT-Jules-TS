@@ -20,7 +20,7 @@
         - [x] T-005 — Implement GameBoard state
             Scope: `src/model/GameBoard.js`, `src/constants.js`.
             Evidence: 10x20 grid array initialized correctly, helper method to get/set cell values.
-        - [ ] T-006 — Define Tetromino shapes and basic rotations
+        - [x] T-006 — Define Tetromino shapes and basic rotations
             Scope: `src/model/Tetromino.js`, `src/constants.js`.
             Evidence: All 7 shapes have correct 4x4 or 3x3 matrices for all 4 rotation states.
         - [ ] T-007 — Implement GameState skeleton
