@@ -38,4 +38,62 @@ export class GameBoard {
         }
         return true;
     }
+
+    lockPiece(piece, bx, by) {
+        const matrix = piece.getMatrix();
+        let colorIndex = 0;
+        
+        // Find the color of this piece
+        for (let r = 0; r < matrix.length; r++) {
+            for (let c = 0; c < matrix[r].length; c++) {
+                if (matrix[r][c] !== 0) {
+                    colorIndex = matrix[r][c];
+                    break;
+                }
+            }
+            if (colorIndex !== 0) break;
+        }
+
+        // Write to grid
+        for (let y = 0; y < matrix.length; y++) {
+            for (let x = 0; x < matrix[y].length; x++) {
+                if (matrix[y][x] !== 0) {
+                    let boardX = bx + x;
+                    let boardY = by + y;
+                    
+                    if (boardY >= 0 && boardY < ROWS + HIDDEN_ROWS) {
+                        this.grid[boardY][boardX] = colorIndex;
+                    }
+                }
+            }
+        }
+    }
+
+    clearLines() {
+        let linesCleared = 0;
+        
+        // Iterate backwards from the bottom up
+        for (let y = ROWS + HIDDEN_ROWS - 1; y >= 0; y--) {
+            let isFull = true;
+            for (let x = 0; x < COLS; x++) {
+                if (this.grid[y][x] === 0) {
+                    isFull = false;
+                    break;
+                }
+            }
+
+            if (isFull) {
+                // Remove the row
+                this.grid.splice(y, 1);
+                // Add a new empty row at the top
+                this.grid.unshift(Array(COLS).fill(0));
+                linesCleared++;
+                
+                // Because we shifted everything down by 1, we must re-check this same Y index
+                y++; 
+            }
+        }
+        
+        return linesCleared;
+    }
 }

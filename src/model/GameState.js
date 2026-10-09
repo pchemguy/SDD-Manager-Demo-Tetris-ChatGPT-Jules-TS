@@ -9,6 +9,8 @@ export class GameState {
         this.gravityAccumulator = 0;
         this.gravityInterval = 1.0; // 1 second per row for MVP
         
+        this.linesClearedTotal = 0;
+        
         this.spawnPiece();
     }
 
@@ -73,8 +75,17 @@ export class GameState {
     }
 
     lockPiece() {
-        // Transfer piece to board (to be implemented fully in Milestone 1.4)
-        // For 1.3, we'll just respawn it at the top when it hits the bottom
+        // Transfer piece to board
+        this.board.lockPiece(this.activePiece, this.piecePosition.x, this.piecePosition.y);
+        
+        // Clear lines
+        const linesCleared = this.board.clearLines();
+        if (linesCleared > 0) {
+            this.linesClearedTotal += linesCleared;
+            console.log(`Cleared ${linesCleared} lines. Total: ${this.linesClearedTotal}`);
+        }
+
+        // Respawn
         this.spawnPiece();
     }
 }
