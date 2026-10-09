@@ -7,7 +7,7 @@
         - [x] T-001 — Setup project files
             Scope: `index.html`, `style.css`, `src/main.js`.
             Evidence: HTML loads, basic CSS layout is visible, JS console runs without errors.
-        - [ ] T-002 — Implement GameLoop
+        - [x] T-002 — Implement GameLoop
             Scope: `src/controller/GameLoop.js`, `src/main.js`.
             Evidence: `requestAnimationFrame` loop runs, calculates `deltaTime`, and logs ticks to the console.
         - [ ] T-003 — Implement InputHandler skeleton
