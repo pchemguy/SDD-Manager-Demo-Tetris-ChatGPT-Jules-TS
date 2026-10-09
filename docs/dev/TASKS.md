@@ -87,10 +87,10 @@
             Depends on: T-022, T-023. Evidence: code review, required tests, blocker repairs and committed report.
             Report: docs/dev/reports/phases/2/2.2.md.
     - [ ] Milestone 2.3 — Hold Piece
-        - [ ] T-025 — Implement Hold logic
+        - [x] T-025 — Implement Hold logic
             Scope: `src/model/GameState.js`.
             Evidence: Pressing Hold swaps current piece to hold slot. Only allows one hold per piece-spawn.
-        - [ ] T-026 — Render Hold slot
+        - [x] T-026 — Render Hold slot
             Scope: `src/view/Renderer.js`.
             Evidence: UI displays the currently held piece (if any).
         - [ ] T-027 — Review, test and report milestone 2.3
