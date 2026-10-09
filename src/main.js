@@ -9,20 +9,25 @@ const inputHandler = new InputHandler();
 const gameState = new GameState();
 const renderer = new Renderer('tetris-canvas');
 
-let updateCount = 0;
-
 function update(deltaTime) {
-    updateCount++;
-    
-    if (inputHandler.consumeCommand('moveLeft')) console.log("Action: Move Left");
-    if (inputHandler.consumeCommand('moveRight')) console.log("Action: Move Right");
-    if (inputHandler.consumeCommand('rotateClockwise')) {
-        console.log("Action: Rotate CW");
-        if (gameState.activePiece) {
-            gameState.activePiece.rotate('cw');
-        }
+    // 1. Process discrete inputs
+    if (inputHandler.consumeCommand('moveLeft')) {
+        gameState.movePiece(-1, 0);
     }
-    if (inputHandler.consumeCommand('hardDrop')) console.log("Action: Hard Drop");
+    if (inputHandler.consumeCommand('moveRight')) {
+        gameState.movePiece(1, 0);
+    }
+    if (inputHandler.consumeCommand('rotateClockwise')) {
+        gameState.rotatePiece('cw');
+    }
+    if (inputHandler.consumeCommand('rotateCounterClockwise')) {
+        gameState.rotatePiece('ccw');
+    }
+    // Hard drop deferred to Milestone 2.2
+    
+    // 2. Process continuous inputs (soft drop) & advance time
+    const softDrop = inputHandler.commands.softDrop;
+    gameState.update(deltaTime, softDrop);
 }
 
 function render() {
