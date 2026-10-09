@@ -76,14 +76,14 @@
         - [x] T-021 — Review, test and report milestone 2.1
             Depends on: T-019, T-020. Evidence: code review, required tests, blocker repairs and committed report.
             Report: docs/dev/reports/phases/2/2.1.md.
-    - [ ] Milestone 2.2 — Hard Drop and Ghost Piece
+    - [x] Milestone 2.2 — Hard Drop and Ghost Piece
         - [x] T-022 — Implement Hard Drop logic
             Scope: `src/model/GameState.js`.
             Evidence: Spacebar instantly calculates lowest valid position, moves piece, and locks it immediately.
         - [x] T-023 — Calculate and render Ghost Piece
             Scope: `src/model/GameState.js`, `src/view/Renderer.js`.
             Evidence: A translucent outline of the piece is rendered at its hard-drop location, updating as the piece moves.
-        - [ ] T-024 — Review, test and report milestone 2.2
+        - [x] T-024 — Review, test and report milestone 2.2
             Depends on: T-022, T-023. Evidence: code review, required tests, blocker repairs and committed report.
             Report: docs/dev/reports/phases/2/2.2.md.
     - [ ] Milestone 2.3 — Hold Piece
