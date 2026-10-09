@@ -26,7 +26,7 @@
         - [x] T-007 — Implement GameState skeleton
             Scope: `src/model/GameState.js`.
             Evidence: Holds instances of `GameBoard` and an active `Tetromino` at a valid starting position.
-        - [ ] T-008 — Implement basic Canvas Renderer
+        - [x] T-008 — Implement basic Canvas Renderer
             Scope: `src/view/Renderer.js`.
             Evidence: Draws the 10x20 grid background and the active `Tetromino` on the screen based on `GameState`.
         - [ ] T-009 — Review, test and report milestone 1.2
