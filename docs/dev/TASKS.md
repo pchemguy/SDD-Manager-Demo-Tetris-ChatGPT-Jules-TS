@@ -114,7 +114,7 @@
 ## Phase 3 — Progression and Polish
 
 - [ ] Phase 3 — Progression and Polish
-    - [ ] Milestone 3.1 — Scoring and Levels
+    - [x] Milestone 3.1 — Scoring and Levels
         - [x] T-032 — Implement scoring system
             Scope: `src/model/GameBoard.js`, `src/model/GameState.js`.
             Evidence: Points awarded based on lines cleared (1, 2, 3, 4) multiplied by current level.
@@ -124,27 +124,27 @@
         - [x] T-034 — Render score and level UI
             Scope: `src/view/Renderer.js`, `index.html`, `style.css`.
             Evidence: Score, level, and total lines cleared are visible and update accurately.
-        - [ ] T-035 — Review, test and report milestone 3.1
+        - [x] T-035 — Review, test and report milestone 3.1
             Depends on: T-032, T-033, T-034. Evidence: code review, required tests, blocker repairs and committed report.
             Report: docs/dev/reports/phases/3/3.1.md.
-    - [ ] Milestone 3.2 — Game Over
+    - [x] Milestone 3.2 — Game Over
         - [x] T-036 — Implement Game Over detection
             Scope: `src/model/GameState.js`.
             Evidence: Game halts and ignores input if a newly spawned piece immediately overlaps the stack (lock out/block out).
         - [x] T-037 — Render Game Over state
             Scope: `src/view/Renderer.js`.
             Evidence: Visual indicator (e.g., overlay text) shows the game has ended.
-        - [ ] T-038 — Review, test and report milestone 3.2
+        - [x] T-038 — Review, test and report milestone 3.2
             Depends on: T-036, T-037. Evidence: code review, required tests, blocker repairs and committed report.
             Report: docs/dev/reports/phases/3/3.2.md.
-    - [ ] Milestone 3.3 — UI Polish
+    - [x] Milestone 3.3 — UI Polish
         - [x] T-039 — Implement Game Start / Restart controls
             Scope: `src/controller/InputHandler.js`, `src/model/GameState.js`, `index.html`.
             Evidence: User can start the game and restart after a Game Over without refreshing the page.
         - [x] T-040 — Finalize CSS and Canvas rendering polish
             Scope: `style.css`, `src/view/Renderer.js`.
             Evidence: Colors, grid lines, and layout match a clean, classic Tetris aesthetic.
-        - [ ] T-041 — Review, test and report milestone 3.3
+        - [x] T-041 — Review, test and report milestone 3.3
             Depends on: T-039, T-040. Evidence: code review, required tests, blocker repairs and committed report.
             Report: docs/dev/reports/phases/3/3.3.md.
     - [ ] Milestone 3.4 — Phase 3 Review
