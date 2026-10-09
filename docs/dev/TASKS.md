@@ -67,10 +67,10 @@
 
 - [ ] Phase 2 — Modern Mechanics
     - [ ] Milestone 2.1 — 7-Bag Randomizer
-        - [ ] T-019 — Implement 7-Bag piece generation
+        - [x] T-019 — Implement 7-Bag piece generation
             Scope: `src/model/PieceQueue.js`.
             Evidence: Pieces are dealt in shuffled sets of 7, ensuring all shapes appear before repeating the bag.
-        - [ ] T-020 — Render Next Piece queue
+        - [x] T-020 — Render Next Piece queue
             Scope: `src/view/Renderer.js`.
             Evidence: UI shows the next upcoming pieces based on the `PieceQueue`.
         - [ ] T-021 — Review, test and report milestone 2.1
