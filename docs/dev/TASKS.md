@@ -36,10 +36,10 @@
         - [x] T-010 — Connect Input to GameState movements
             Scope: `src/controller/InputHandler.js`, `src/model/GameState.js`.
             Evidence: Left/Right inputs move the active piece position; Left/Right limits enforced by grid boundaries.
-        - [ ] T-011 — Implement basic gravity
+        - [x] T-011 — Implement basic gravity
             Scope: `src/model/GameState.js`, `src/controller/GameLoop.js`.
             Evidence: Active piece moves down one row automatically based on a basic timer integrated with `deltaTime`. Soft drop key speeds this up.
-        - [ ] T-012 — Implement collision detection
+        - [x] T-012 — Implement collision detection
             Scope: `src/model/GameBoard.js`, `src/model/GameState.js`.
             Evidence: `isValidMove` checks floor boundary. Piece cannot move down past row 19.
         - [ ] T-013 — Review, test and report milestone 1.3
