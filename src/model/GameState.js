@@ -9,7 +9,7 @@ export class GameState {
         this.activePiece = null;
         this.piecePosition = { x: 0, y: 0 };
         this.gravityAccumulator = 0;
-        this.gravityInterval = 1.0; // 1 second per row for MVP
+        this.gravityInterval = 1.0; 
         
         this.linesClearedTotal = 0;
         
@@ -30,10 +30,9 @@ export class GameState {
     update(deltaTime, softDrop) {
         if (!this.activePiece) return;
 
-        // Apply gravity
         let currentInterval = this.gravityInterval;
         if (softDrop) {
-            currentInterval /= 10; // Speed up 10x for soft drop
+            currentInterval /= 10; 
         }
 
         this.gravityAccumulator += deltaTime;
@@ -55,7 +54,6 @@ export class GameState {
             return true;
         }
 
-        // If we tried to move down and failed, it means we hit the floor/stack
         if (dy > 0) {
             this.lockPiece();
         }
@@ -66,8 +64,6 @@ export class GameState {
     rotatePiece(direction) {
         if (!this.activePiece) return false;
 
-        // MVP: Simple rotation, no wall kicks yet. 
-        // Just check if the next state is valid. If not, ignore the rotation.
         const nextMatrix = this.activePiece.getNextRotationMatrix(direction);
         if (this.board.isValidMove(nextMatrix, this.piecePosition.x, this.piecePosition.y)) {
             this.activePiece.rotate(direction);
@@ -76,18 +72,41 @@ export class GameState {
         return false;
     }
 
+    hardDrop() {
+        if (!this.activePiece) return;
+        
+        let dropDistance = 0;
+        while (this.board.isValidMove(this.activePiece.getMatrix(), this.piecePosition.x, this.piecePosition.y + dropDistance + 1)) {
+            dropDistance++;
+        }
+        
+        this.piecePosition.y += dropDistance;
+        this.lockPiece();
+    }
+
+    getGhostPosition() {
+        if (!this.activePiece) return null;
+        
+        let dropDistance = 0;
+        while (this.board.isValidMove(this.activePiece.getMatrix(), this.piecePosition.x, this.piecePosition.y + dropDistance + 1)) {
+            dropDistance++;
+        }
+        
+        return {
+            x: this.piecePosition.x,
+            y: this.piecePosition.y + dropDistance
+        };
+    }
+
     lockPiece() {
-        // Transfer piece to board
         this.board.lockPiece(this.activePiece, this.piecePosition.x, this.piecePosition.y);
         
-        // Clear lines
         const linesCleared = this.board.clearLines();
         if (linesCleared > 0) {
             this.linesClearedTotal += linesCleared;
             console.log(`Cleared ${linesCleared} lines. Total: ${this.linesClearedTotal}`);
         }
 
-        // Respawn
         this.spawnPiece();
     }
 }

@@ -23,7 +23,9 @@ function update(deltaTime) {
     if (inputHandler.consumeCommand('rotateCounterClockwise')) {
         gameState.rotatePiece('ccw');
     }
-    // Hard drop deferred to Milestone 2.2
+    if (inputHandler.consumeCommand('hardDrop')) {
+        gameState.hardDrop();
+    }
     
     // 2. Process continuous inputs (soft drop) & advance time
     const softDrop = inputHandler.commands.softDrop;

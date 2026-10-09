@@ -6,8 +6,6 @@ export class Renderer {
         this.canvas = document.getElementById(canvasId);
         this.ctx = this.canvas.getContext('2d');
         
-        // We will expand the canvas to make room for UI
-        // Main board is COLS * BLOCK_SIZE, let's add 6 blocks of width for the UI side panel
         this.boardWidth = COLS * BLOCK_SIZE;
         this.boardHeight = ROWS * BLOCK_SIZE;
         this.sidebarWidth = 6 * BLOCK_SIZE;
@@ -19,8 +17,16 @@ export class Renderer {
     render(gameState) {
         this.clearCanvas();
         this.drawBoard(gameState.board);
+        
         if (gameState.activePiece) {
-            this.drawPiece(gameState.activePiece, gameState.piecePosition.x, gameState.piecePosition.y);
+            // Draw Ghost Piece
+            const ghostPos = gameState.getGhostPosition();
+            if (ghostPos) {
+                this.drawPiece(gameState.activePiece, ghostPos.x, ghostPos.y, true);
+            }
+            
+            // Draw Active Piece
+            this.drawPiece(gameState.activePiece, gameState.piecePosition.x, gameState.piecePosition.y, false);
         }
         this.drawSidebar(gameState);
     }
@@ -31,7 +37,6 @@ export class Renderer {
     }
 
     drawBoard(board) {
-        // Draw the locked stack
         for (let y = HIDDEN_ROWS; y < ROWS + HIDDEN_ROWS; y++) {
             for (let x = 0; x < COLS; x++) {
                 const cellValue = board.getCell(x, y);
@@ -41,7 +46,6 @@ export class Renderer {
             }
         }
 
-        // Draw faint grid lines (board only)
         this.ctx.strokeStyle = '#333';
         this.ctx.lineWidth = 1;
         for (let y = 0; y < ROWS; y++) {
@@ -50,7 +54,6 @@ export class Renderer {
             }
         }
         
-        // Divider line for sidebar
         this.ctx.strokeStyle = '#fff';
         this.ctx.beginPath();
         this.ctx.moveTo(this.boardWidth, 0);
@@ -67,16 +70,13 @@ export class Renderer {
         
         this.ctx.fillText("NEXT", textX, 30);
         
-        // Render next 5 pieces from queue
         const previewTypes = gameState.queue.getPreview(5);
         for (let i = 0; i < previewTypes.length; i++) {
             const piece = new Tetromino(previewTypes[i]);
-            // Draw them scaled down or offset
             this.drawPiecePreview(piece, textX, 50 + (i * 80));
         }
     }
 
-    // Helper to draw a piece in UI coordinate space
     drawPiecePreview(piece, screenX, screenY) {
         const matrix = piece.getMatrix();
         let colorIndex = 0;
@@ -91,7 +91,7 @@ export class Renderer {
         }
 
         const color = COLORS[colorIndex];
-        const previewBlockSize = BLOCK_SIZE * 0.7; // Smaller for UI
+        const previewBlockSize = BLOCK_SIZE * 0.7;
 
         for (let y = 0; y < matrix.length; y++) {
             for (let x = 0; x < matrix[y].length; x++) {
@@ -109,7 +109,7 @@ export class Renderer {
         }
     }
 
-    drawPiece(piece, px, py) {
+    drawPiece(piece, px, py, isGhost) {
         const matrix = piece.getMatrix();
         let colorIndex = 0;
         for (let r = 0; r < matrix.length; r++) {
@@ -129,7 +129,11 @@ export class Renderer {
                 if (matrix[y][x] !== 0) {
                     const renderY = py + y - HIDDEN_ROWS;
                     if (renderY >= 0) {
-                        this.drawBlock(px + x, renderY, color);
+                        if (isGhost) {
+                            this.drawGhostBlock(px + x, renderY, color);
+                        } else {
+                            this.drawBlock(px + x, renderY, color);
+                        }
                     }
                 }
             }
@@ -150,5 +154,14 @@ export class Renderer {
         this.ctx.lineTo(x * BLOCK_SIZE, y * BLOCK_SIZE);
         this.ctx.lineTo(x * BLOCK_SIZE + BLOCK_SIZE, y * BLOCK_SIZE);
         this.ctx.stroke();
+    }
+    
+    drawGhostBlock(x, y, color) {
+        this.ctx.fillStyle = 'rgba(255, 255, 255, 0.15)';
+        this.ctx.fillRect(x * BLOCK_SIZE, y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
+        
+        this.ctx.strokeStyle = color;
+        this.ctx.lineWidth = 2;
+        this.ctx.strokeRect(x * BLOCK_SIZE + 1, y * BLOCK_SIZE + 1, BLOCK_SIZE - 2, BLOCK_SIZE - 2);
     }
 }
