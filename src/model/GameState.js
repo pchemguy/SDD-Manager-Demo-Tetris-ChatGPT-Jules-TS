@@ -11,10 +11,17 @@ export class GameState {
         this.piecePosition = { x: 0, y: 0 };
         
         this.heldPieceType = null;
-        this.canHold = true; // Can only hold once per drop
+        this.canHold = true; 
         
         this.gravityAccumulator = 0;
         this.gravityInterval = 1.0; 
+        
+        // Lock delay logic
+        this.lockDelayLimit = 1.0; // Same as one full gravity interval (MVP spec)
+        this.lockDelayAccumulator = 0;
+        this.locking = false;
+        this.lockMoveResets = 0;
+        this.maxLockMoveResets = 15; // Prevent infinite stalling
         
         this.linesClearedTotal = 0;
         
@@ -32,6 +39,12 @@ export class GameState {
         };
         
         this.canHold = true;
+        this.locking = false;
+        this.lockDelayAccumulator = 0;
+        this.lockMoveResets = 0;
+        
+        // Match lock delay strictly to current gravity (which will change later via level)
+        this.lockDelayLimit = this.gravityInterval;
     }
 
     holdPiece() {
@@ -54,15 +67,41 @@ export class GameState {
     update(deltaTime, softDrop) {
         if (!this.activePiece) return;
 
-        let currentInterval = this.gravityInterval;
-        if (softDrop) {
-            currentInterval /= 10; 
-        }
+        // Check if piece is resting on a surface
+        const isOnSurface = !this.board.isValidMove(
+            this.activePiece.getMatrix(), 
+            this.piecePosition.x, 
+            this.piecePosition.y + 1
+        );
 
-        this.gravityAccumulator += deltaTime;
-        if (this.gravityAccumulator >= currentInterval) {
-            this.gravityAccumulator = 0;
-            this.movePiece(0, 1);
+        if (isOnSurface) {
+            this.locking = true;
+            this.lockDelayAccumulator += deltaTime;
+            
+            if (this.lockDelayAccumulator >= this.lockDelayLimit) {
+                this.lockPiece();
+                return;
+            }
+        } else {
+            this.locking = false;
+            // Apply normal gravity
+            let currentInterval = this.gravityInterval;
+            if (softDrop) {
+                currentInterval /= 10; 
+            }
+
+            this.gravityAccumulator += deltaTime;
+            if (this.gravityAccumulator >= currentInterval) {
+                this.gravityAccumulator = 0;
+                this.movePiece(0, 1);
+            }
+        }
+    }
+
+    resetLockDelay() {
+        if (this.locking && this.lockMoveResets < this.maxLockMoveResets) {
+            this.lockDelayAccumulator = 0;
+            this.lockMoveResets++;
         }
     }
 
@@ -75,11 +114,11 @@ export class GameState {
         if (this.board.isValidMove(this.activePiece.getMatrix(), newX, newY)) {
             this.piecePosition.x = newX;
             this.piecePosition.y = newY;
+            
+            // Any successful horizontal move or un-grounding move resets lock delay
+            this.resetLockDelay();
+            
             return true;
-        }
-
-        if (dy > 0) {
-            this.lockPiece();
         }
 
         return false;
@@ -89,10 +128,23 @@ export class GameState {
         if (!this.activePiece) return false;
 
         const nextMatrix = this.activePiece.getNextRotationMatrix(direction);
-        if (this.board.isValidMove(nextMatrix, this.piecePosition.x, this.piecePosition.y)) {
-            this.activePiece.rotate(direction);
-            return true;
+        const kicks = this.activePiece.getWallKicks(direction);
+        
+        for (let kick of kicks) {
+            const testX = this.piecePosition.x + kick.x;
+            const testY = this.piecePosition.y + kick.y;
+            
+            if (this.board.isValidMove(nextMatrix, testX, testY)) {
+                this.activePiece.rotate(direction);
+                this.piecePosition.x = testX;
+                this.piecePosition.y = testY;
+                
+                this.resetLockDelay();
+                
+                return true;
+            }
         }
+        
         return false;
     }
 
