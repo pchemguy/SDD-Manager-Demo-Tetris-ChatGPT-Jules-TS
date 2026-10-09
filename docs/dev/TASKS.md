@@ -32,7 +32,7 @@
         - [x] T-009 — Review, test and report milestone 1.2
             Depends on: T-005, T-006, T-007, T-008. Evidence: code review, required tests, blocker repairs and committed report.
             Report: docs/dev/reports/phases/1/1.2.md.
-    - [ ] Milestone 1.3 — Gravity and Collision
+    - [x] Milestone 1.3 — Gravity and Collision
         - [x] T-010 — Connect Input to GameState movements
             Scope: `src/controller/InputHandler.js`, `src/model/GameState.js`.
             Evidence: Left/Right inputs move the active piece position; Left/Right limits enforced by grid boundaries.
@@ -42,7 +42,7 @@
         - [x] T-012 — Implement collision detection
             Scope: `src/model/GameBoard.js`, `src/model/GameState.js`.
             Evidence: `isValidMove` checks floor boundary. Piece cannot move down past row 19.
-        - [ ] T-013 — Review, test and report milestone 1.3
+        - [x] T-013 — Review, test and report milestone 1.3
             Depends on: T-010, T-011, T-012. Evidence: code review, required tests, blocker repairs and committed report.
             Report: docs/dev/reports/phases/1/1.3.md.
     - [ ] Milestone 1.4 — Basic Locking and Line Clears
