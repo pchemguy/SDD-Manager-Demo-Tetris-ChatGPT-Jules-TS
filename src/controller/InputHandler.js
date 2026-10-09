@@ -8,7 +8,8 @@ export class InputHandler {
             hardDrop: false,
             rotateClockwise: false,
             rotateCounterClockwise: false,
-            hold: false
+            hold: false,
+            restart: false
         };
 
         window.addEventListener('keydown', (e) => this.handleKeyDown(e));
@@ -18,7 +19,6 @@ export class InputHandler {
     }
 
     handleKeyDown(e) {
-        // Prevent default scrolling for game keys
         if (["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight", "Space"].includes(e.code)) {
             e.preventDefault();
         }
@@ -26,7 +26,6 @@ export class InputHandler {
         if (!this.keys[e.code]) {
             this.keys[e.code] = true;
             this.mapKeysToCommands(e.code, true);
-            console.log(`Key down: ${e.code}`);
         }
     }
 
@@ -34,7 +33,6 @@ export class InputHandler {
         if (this.keys[e.code]) {
             this.keys[e.code] = false;
             this.mapKeysToCommands(e.code, false);
-            console.log(`Key up: ${e.code}`);
         }
     }
 
@@ -64,13 +62,14 @@ export class InputHandler {
             case 'ShiftRight':
                 this.commands.hold = isPressed;
                 break;
+            case 'KeyR':
+                this.commands.restart = isPressed;
+                break;
         }
     }
     
     consumeCommand(commandName) {
         if (this.commands[commandName]) {
-            // Some commands like rotate/harddrop shouldn't be held down to repeat indefinitely 
-            // without custom delay logic, so we consume them instantly for now
             this.commands[commandName] = false;
             return true;
         }

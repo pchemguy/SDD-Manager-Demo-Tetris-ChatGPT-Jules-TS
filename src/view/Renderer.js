@@ -6,8 +6,6 @@ export class Renderer {
         this.canvas = document.getElementById(canvasId);
         this.ctx = this.canvas.getContext('2d');
         
-        // We will expand the canvas to make room for UI
-        // Let's add 6 blocks of width for the right side panel (Next), and 6 for left (Hold)
         this.boardWidth = COLS * BLOCK_SIZE;
         this.boardHeight = ROWS * BLOCK_SIZE;
         this.sidebarWidth = 6 * BLOCK_SIZE;
@@ -15,7 +13,6 @@ export class Renderer {
         this.canvas.width = this.boardWidth + (this.sidebarWidth * 2);
         this.canvas.height = this.boardHeight;
         
-        // The actual board starts after the left sidebar
         this.boardOffsetX = this.sidebarWidth;
     }
 
@@ -23,19 +20,20 @@ export class Renderer {
         this.clearCanvas();
         this.drawBoard(gameState.board);
         
-        if (gameState.activePiece) {
-            // Draw Ghost Piece
+        if (gameState.activePiece && !gameState.isGameOver) {
             const ghostPos = gameState.getGhostPosition();
             if (ghostPos) {
                 this.drawPiece(gameState.activePiece, ghostPos.x, ghostPos.y, true);
             }
-            
-            // Draw Active Piece
             this.drawPiece(gameState.activePiece, gameState.piecePosition.x, gameState.piecePosition.y, false);
         }
         
         this.drawRightSidebar(gameState);
         this.drawLeftSidebar(gameState);
+        
+        if (gameState.isGameOver) {
+            this.drawGameOver();
+        }
     }
 
     clearCanvas() {
@@ -44,7 +42,6 @@ export class Renderer {
     }
 
     drawBoard(board) {
-        // Draw the locked stack
         for (let y = HIDDEN_ROWS; y < ROWS + HIDDEN_ROWS; y++) {
             for (let x = 0; x < COLS; x++) {
                 const cellValue = board.getCell(x, y);
@@ -54,7 +51,6 @@ export class Renderer {
             }
         }
 
-        // Draw faint grid lines
         this.ctx.strokeStyle = '#333';
         this.ctx.lineWidth = 1;
         for (let y = 0; y < ROWS; y++) {
@@ -63,13 +59,10 @@ export class Renderer {
             }
         }
         
-        // Divider lines
         this.ctx.strokeStyle = '#fff';
         this.ctx.beginPath();
-        // Left divider
         this.ctx.moveTo(this.boardOffsetX, 0);
         this.ctx.lineTo(this.boardOffsetX, this.boardHeight);
-        // Right divider
         this.ctx.moveTo(this.boardOffsetX + this.boardWidth, 0);
         this.ctx.lineTo(this.boardOffsetX + this.boardWidth, this.boardHeight);
         this.ctx.stroke();
@@ -100,14 +93,35 @@ export class Renderer {
         
         if (gameState.heldPieceType) {
             const piece = new Tetromino(gameState.heldPieceType);
-            
-            // If they can't hold again this turn, draw it slightly faded
             if (!gameState.canHold) {
                 this.ctx.globalAlpha = 0.4;
             }
             this.drawPiecePreview(piece, textX, 50);
             this.ctx.globalAlpha = 1.0;
         }
+
+        // Draw Score and Level
+        this.ctx.fillText("SCORE", textX, 200);
+        this.ctx.fillText(gameState.score, textX, 230);
+        
+        this.ctx.fillText("LEVEL", textX, 280);
+        this.ctx.fillText(gameState.level, textX, 310);
+        
+        this.ctx.fillText("LINES", textX, 360);
+        this.ctx.fillText(gameState.linesClearedTotal, textX, 390);
+    }
+
+    drawGameOver() {
+        this.ctx.fillStyle = 'rgba(0, 0, 0, 0.75)';
+        this.ctx.fillRect(this.boardOffsetX, 0, this.boardWidth, this.boardHeight);
+        
+        this.ctx.fillStyle = 'white';
+        this.ctx.font = '40px sans-serif';
+        this.ctx.textAlign = 'center';
+        this.ctx.fillText("GAME OVER", this.boardOffsetX + (this.boardWidth / 2), this.boardHeight / 2);
+        
+        this.ctx.font = '20px sans-serif';
+        this.ctx.fillText("Press R to Restart", this.boardOffsetX + (this.boardWidth / 2), (this.boardHeight / 2) + 40);
     }
 
     drawPiecePreview(piece, screenX, screenY) {

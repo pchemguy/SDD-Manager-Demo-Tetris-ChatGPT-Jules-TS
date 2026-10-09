@@ -6,10 +6,17 @@ import { Renderer } from './view/Renderer.js';
 console.log("Tetris initialized.");
 
 const inputHandler = new InputHandler();
-const gameState = new GameState();
+let gameState = new GameState();
 const renderer = new Renderer('tetris-canvas');
 
 function update(deltaTime) {
+    if (gameState.isGameOver) {
+        if (inputHandler.consumeCommand('restart')) {
+            gameState = new GameState(); // Restart
+        }
+        return;
+    }
+
     if (inputHandler.consumeCommand('moveLeft')) {
         gameState.movePiece(-1, 0);
     }
