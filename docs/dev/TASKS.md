@@ -113,7 +113,7 @@
 
 ## Phase 3 — Progression and Polish
 
-- [ ] Phase 3 — Progression and Polish
+- [x] Phase 3 — Progression and Polish
     - [x] Milestone 3.1 — Scoring and Levels
         - [x] T-032 — Implement scoring system
             Scope: `src/model/GameBoard.js`, `src/model/GameState.js`.
@@ -147,7 +147,7 @@
         - [x] T-041 — Review, test and report milestone 3.3
             Depends on: T-039, T-040. Evidence: code review, required tests, blocker repairs and committed report.
             Report: docs/dev/reports/phases/3/3.3.md.
-    - [ ] Milestone 3.4 — Phase 3 Review
-        - [ ] T-042 — Review, test and report phase 3
+    - [x] Milestone 3.4 — Phase 3 Review
+        - [x] T-042 — Review, test and report phase 3
             Depends on: milestone 3.1, 3.2, 3.3 completion/closure. Evidence: final end-to-end acceptance testing against SPEC, exits, repairs, final TODO aggregation and committed report.
             Report: docs/dev/reports/phases/3/PHASE-REPORT.md.
