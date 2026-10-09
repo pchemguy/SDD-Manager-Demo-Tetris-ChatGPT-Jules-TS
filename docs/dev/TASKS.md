@@ -45,7 +45,7 @@
         - [x] T-013 — Review, test and report milestone 1.3
             Depends on: T-010, T-011, T-012. Evidence: code review, required tests, blocker repairs and committed report.
             Report: docs/dev/reports/phases/1/1.3.md.
-    - [ ] Milestone 1.4 — Basic Locking and Line Clears
+    - [x] Milestone 1.4 — Basic Locking and Line Clears
         - [x] T-014 — Implement stack locking
             Scope: `src/model/GameBoard.js`, `src/model/GameState.js`.
             Evidence: When piece hits floor or stack, it transfers its shape to the `GameBoard` grid. A new piece spawns at the top.
@@ -55,7 +55,7 @@
         - [x] T-016 — Implement basic line clearing
             Scope: `src/model/GameBoard.js`.
             Evidence: Filled rows are detected, removed, and blocks above drop down.
-        - [ ] T-017 — Review, test and report milestone 1.4
+        - [x] T-017 — Review, test and report milestone 1.4
             Depends on: T-014, T-015, T-016. Evidence: code review, required tests, blocker repairs and committed report.
             Report: docs/dev/reports/phases/1/1.4.md.
     - [ ] Milestone 1.5 — Phase 1 Review
