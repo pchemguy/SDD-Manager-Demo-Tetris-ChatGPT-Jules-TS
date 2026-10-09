@@ -17,7 +17,7 @@
             Depends on: T-001, T-002, T-003. Evidence: code review, required tests, blocker repairs and committed report.
             Report: docs/dev/reports/phases/1/1.1.md.
     - [ ] Milestone 1.2 — Board and Tetrominoes
-        - [ ] T-005 — Implement GameBoard state
+        - [x] T-005 — Implement GameBoard state
             Scope: `src/model/GameBoard.js`, `src/constants.js`.
             Evidence: 10x20 grid array initialized correctly, helper method to get/set cell values.
         - [ ] T-006 — Define Tetromino shapes and basic rotations
